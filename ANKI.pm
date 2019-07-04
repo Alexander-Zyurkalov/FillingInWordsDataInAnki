@@ -19,6 +19,19 @@ sub new{
 
 }
 
+sub findNotes{
+    my $self = shift;
+
+}
+
+sub updateNode{
+    my $self = shift;
+    my $node = shift;
+    die "It is not a node\n" if !$node->isa('ANKI::Node');
+
+
+}
+
 sub getDeckNames{
     my $self = shift;
 
