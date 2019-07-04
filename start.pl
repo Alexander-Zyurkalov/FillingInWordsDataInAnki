@@ -17,4 +17,7 @@ print Dumper $anki->getDeckNames();
 
 my $node = ANKI::Node->new(id => 1);
 print $node->isa('ANKI::Node');
+
+print "OK\n";
+
 1;
