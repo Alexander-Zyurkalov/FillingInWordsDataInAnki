@@ -8,13 +8,15 @@ system('chcp 65001');
 
 my $anki = ANKI->new();
 
-if ($anki->getVersion() != 6 ) {
+if ($anki->getVersion() < 6 ) {
      die "Wrong version of ANKI Connect\n";
 }
-print $anki->getVersion();
 # $anki -> sync();
-print Dumper $anki->getDeckNames();
+# print Dumper $anki->getDeckNames();
 
-my $node = ANKI::Node->new(id => 1);
-print $node->isa('ANKI::Node');
+# my $node = ANKI::Node->new(id => 1);
+# print $node->isa('ANKI::Node');
+
+print Dumper $anki->findNotesWithInfo(query => "\"note:German words and phrases\"");
+
 1;
