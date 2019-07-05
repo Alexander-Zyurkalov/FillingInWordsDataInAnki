@@ -1,9 +1,9 @@
-package ANKI::Node;
+package ANKI::Note;
 use strict;
 use warnings FATAL => 'all';
 use Moose;
 use ANKI;
-use ANKI::Node::Verb
+use ANKI::Note::Verb
 
 has 'id', is=>'ro', required => 1;
 has 'anki', is=>'ro', required => 1;
@@ -17,12 +17,12 @@ sub new{
 }
 
 sub initSubClass {
-    return ANKI::Node::Verb->new(@_);
+    # return ANKI::Note::Verb->new(@_);
 }
 
 sub updateNoteFields {
-    my $self = shift;
-    $self->fields()->update();
+    # my $self = shift;
+    # $self->fields()->update();
     # my $action = {
     #     "action"  => "updateNoteFields",
     #     "version" => $ANKI::version,

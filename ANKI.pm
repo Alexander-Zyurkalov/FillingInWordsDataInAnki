@@ -11,7 +11,8 @@ use v5.22;
 our $version = 6;
 
 has 'url', default => 'http://localhost:8765', is=>'rw';
-has 'client', is=>'ro', default => sub {return REST::Client->new()};
+has 'client', is=>'ro', default => sub {return state $version = REST::Client->new()}, lazy=>1;
+has 'actions', is=>'rw', default=>sub{[]};
 
 =pod
 
@@ -45,11 +46,20 @@ sub new{
     $self->SUPER::new(@_);
 }
 
+=item addFieldUpdatingAction()
 
-sub updateNote{
+add fields to update them later with doAllActions
+
+    $anki-> $anki->addFieldUpdatingAction(note => $note);
+
+=cut
+
+sub addFieldUpdatingAction{
     my $self = shift;
-    my $node = shift;
-    die "It is not a node\n" if !$node->isa('ANKI::Node');
+    my %params = @_;
+    my $note = $params{note};
+    die "It is not a note" if !$note->isa('ANKI::Note');
+    push @{$self->actions}, $note->getUpdateAction();
 }
 
 sub getDeckNames{
@@ -75,7 +85,9 @@ sub getNotesInfo{
     my $self = shift;
     my %params = @_;
     my $notes = $params{notes};
-    return @{$self->_post ({
+    return map{
+        $_ # TODO do casting here
+    } @{$self->_post ({
         action => "notesInfo",
         version => $version,
         params => {
@@ -152,6 +164,7 @@ sub sync{
     );
 }
 
+#TODO change it so that it was created by Moose via "has"
 sub getVersion {
     my $self = shift;
     if (exists $self->{version}){
