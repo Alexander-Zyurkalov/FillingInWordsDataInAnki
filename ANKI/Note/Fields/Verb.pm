@@ -1,9 +1,9 @@
-package ANKI::Note::Verb;
+package ANKI::Note::Fields::Verb;
 use warnings FATAL => 'all';
 use strict;
 use Moose;
 use ANKI::Note;
-extends 'ANKI::Note';
+with 'ANKI::Note::Fields';
 
 1;
 

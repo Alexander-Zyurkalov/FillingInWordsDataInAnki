@@ -1,7 +1,7 @@
 package ANKI::Note::Fields;
 use strict;
 use warnings FATAL => 'all';
-use Moose;
+use Moose::Role;
 use ANKI;
 use ANKI::Note;
 

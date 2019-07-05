@@ -10,11 +10,12 @@ my $anki = ANKI->new();
 
 #######
 # Checking whether it is created correctly with correct types.
-my $standard_fields = ANKI::Note::Fields->new(german=>"sein", priority=>2);
+my $standard_fields = ANKI::Note::Fields::Verb->new(german=>"sein", priority=>2);
 my $note = ANKI::Note->new( id=>1, anki=>$anki, modelName => 'Default', fields=>[$standard_fields]);
 isa_ok($note,"ANKI::Note");
 isa_ok($note->fields,"ARRAY");
-isa_ok($note->fields->[0],"ANKI::Note::Fields");
+ok($note->fields->[0]->does("ANKI::Note::Fields"), 'Fields should implement ANKI::Note::Fields interface');
+
 
 
 done_testing();

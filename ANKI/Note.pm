@@ -3,7 +3,7 @@ use strict;
 use warnings FATAL => 'all';
 use Moose;
 use ANKI;
-use ANKI::Note::Verb;
+use ANKI::Note::Fields::Verb;
 
 =pod
 
