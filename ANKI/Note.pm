@@ -3,12 +3,35 @@ use strict;
 use warnings FATAL => 'all';
 use Moose;
 use ANKI;
-use ANKI::Note::Verb
+use ANKI::Note::Verb;
+
+=pod
+
+=head1 SYNOPSIS
+
+later
+
+=head1 PUBLIC INTERFACE
+
+later
+
+=over 4
+
+=cut
+
 
 has 'id', is=>'ro', required => 1;
 has 'anki', is=>'ro', required => 1;
 has 'modelName', is=>'ro', required => 1;
-has 'fields', is=>'ro', required => 0;
+
+=item fields
+
+we use set of fields since a word can be a verb and a noun at the same time
+and we need to handle them is one entity but different cards.
+
+=cut
+has 'fields', is=>'ro', required => 1, isa=>'ArrayRef[ANKI::Note::Fields]';
+
 has 'tags', is=>'ro';
 
 sub new{
@@ -38,4 +61,9 @@ sub updateNoteFields {
     # };
     # $self->anki->updateNode($self);
 }
+
+=back
+
+=cut
+
 1;
