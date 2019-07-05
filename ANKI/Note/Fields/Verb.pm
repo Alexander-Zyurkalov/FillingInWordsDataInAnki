@@ -5,5 +5,12 @@ use Moose;
 use ANKI::Note;
 with 'ANKI::Note::Fields';
 
+
+
+
+sub getUpdateRequest{
+    my $self = shift;
+}
+
 1;
 
