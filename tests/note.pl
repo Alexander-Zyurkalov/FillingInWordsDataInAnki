@@ -26,27 +26,20 @@ my $expected = {
     'version' => 6,
     'params' => {
         'note' => {
+            'id' => 1,
             'fields' => {
-                'params' => {
-                    'fields' => {
-                        'example1_is_ready' => undef,
-                        'example2' => undef,
-                        'priority' => 2,
-                        'example2_is_ready' => undef,
-                        'example1_translation' => undef,
-                        'example2_translation' => undef,
-                        'example2_sound' => undef,
-                        'example1' => undef,
-                        'sound' => '[sound:pronunciation_de_sein.mp3]',
-                        'german' => 'sein',
-                        'example1_sound' => undef
-                    },
-                    'id' => '1514547547030'
-                },
-                'version' => 6,
-                'action' => 'updateNoteFields'
+                'example1_is_ready' => undef,
+                'example2' => undef,
+                'priority' => 2,
+                'example2_is_ready' => undef,
+                'example1_translation' => undef,
+                'example2_translation' => undef,
+                'example2_sound' => undef,
+                'example1' => undef,
+                'sound' => '[sound:pronunciation_de_sein.mp3]',
+                'german' => 'sein',
+                'example1_sound' => undef
             },
-            'id' => 1
         }
     }
 };

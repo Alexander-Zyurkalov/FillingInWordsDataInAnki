@@ -22,24 +22,17 @@ has 'example2_translation', required=>0, is=>'ro';
 sub getUpdateRequest {
     my $self = shift;
     my %request = (
-        action  => 'updateNoteFields',
-        version => $ANKI::version,
-        params  => {
-            id     => $self->id(),
-            fields => {
-                german               => $self->german(),
-                sound                => $self->sound(),
-                priority             => $self->priority(),
-                example1_is_ready    => $self->example1_is_ready(),
-                example1             => $self->example1(),
-                example1_sound       => $self->example1_sound(),
-                example1_translation => $self->example1_translation(),
-                example2_is_ready    => $self->example2_is_ready(),
-                example2             => $self->example2(),
-                example2_sound       => $self->example2_sound(),
-                example2_translation => $self->example2_translation(),
-            }
-        }
+        german               => $self->german(),
+        sound                => $self->sound(),
+        priority             => $self->priority(),
+        example1_is_ready    => $self->example1_is_ready(),
+        example1             => $self->example1(),
+        example1_sound       => $self->example1_sound(),
+        example1_translation => $self->example1_translation(),
+        example2_is_ready    => $self->example2_is_ready(),
+        example2             => $self->example2(),
+        example2_sound       => $self->example2_sound(),
+        example2_translation => $self->example2_translation(),
     );
     return %request;
 }
