@@ -21,16 +21,14 @@ later
 
 
 has 'id', is=>'ro', required => 1;
-has 'anki', is=>'ro', required => 1;
 has 'modelName', is=>'ro', required => 1;
 
-=item fields
+=item common_fields
 
-we use set of fields since a word can be a verb and a noun at the same time
-and we need to handle them is one entity but different cards.
+The set of fields those are common for all types of words, either verbs or nouns or others.
 
 =cut
-has 'fields', is=>'ro', required => 1, isa=>'ArrayRef[ANKI::Note::Fields]';
+has 'common_fields', is=>'ro', required => 1, isa=>'ANKI::Note::Fields';
 
 has 'tags', is=>'ro';
 
@@ -43,23 +41,21 @@ sub initSubClass {
     # return ANKI::Note::Verb->new(@_);
 }
 
-sub updateNoteFields {
-    # my $self = shift;
-    # $self->fields()->update();
-    # my $action = {
-    #     "action"  => "updateNoteFields",
-    #     "version" => $ANKI::version,
-    #     "params"  => {
-    #         "note" => {
-    #             "id"     => $self->id,
-    #             "fields" => {
-    #                 "Front" => "new front content",
-    #                 "Back"  => "new back content"
-    #             }
-    #         }
-    #     }
-    # };
-    # $self->anki->updateNode($self);
+sub getUpdateRequest {
+    my $self = shift;
+    my %action = (
+        "action"  => "updateNoteFields",
+        "version" => $ANKI::version,
+        "params"  => {
+            "note" => {
+                "id"     => $self->id,
+                "fields" => {
+                    $self->common_fields()->getUpdateRequest(),
+                },
+            }
+        }
+    );
+    return %action;
 }
 
 =back
