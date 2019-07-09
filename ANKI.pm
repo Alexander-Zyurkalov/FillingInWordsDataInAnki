@@ -85,7 +85,23 @@ sub getNotesInfo{
     my %params = @_;
     my $notes = $params{notes};
     return map{
-        $_ # TODO do casting here
+        ANKI::Note->new(
+            id            => $_->{noteId},
+            modelName     => $_->{modelName},
+            common_fields => ANKI::Note::Fields->new(
+                german               => encode('utf8', $_->{fields}->{german}->{value}),
+                sound                => encode('utf8', $_->{fields}->{sound}->{value}),
+                priority             => encode('utf8', $_->{fields}->{priority}->{value}),
+                example1_is_ready    => encode('utf8', $_->{fields}->{example1_is_ready}->{value}),
+                example1             => encode('utf8', $_->{fields}->{example1}->{value}),
+                example1_sound       => encode('utf8', $_->{fields}->{example1_sound}->{value}),
+                example1_translation => encode('utf8', $_->{fields}->{example1_translation}->{value}),
+                example2_is_ready    => encode('utf8', $_->{fields}->{example2_is_ready}->{value}),
+                example2             => encode('utf8', $_->{fields}->{example2}->{value}),
+                example2_sound       => encode('utf8', $_->{fields}->{example2_sound}->{value}),
+                example2_translation => encode('utf8', $_->{fields}->{example2_translation}->{value}),
+            )
+        )
     } @{$self->_post ({
         action => "notesInfo",
         version => $version,
