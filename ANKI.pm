@@ -12,7 +12,6 @@ our $version = 6;
 
 has 'url', default => 'http://localhost:8765', is=>'rw';
 has 'client', is=>'ro', default => sub {return state $version = REST::Client->new()}, lazy=>1;
-has 'actions', is=>'rw', default=>sub{[]};
 
 =pod
 
