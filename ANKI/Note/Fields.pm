@@ -6,7 +6,6 @@ use ANKI;
 use ANKI::Note;
 
 has 'german', is=>'rw', required=>1;
-has 'id', is=>'ro', required=>1;
 has 'sound', is=>'rw', required=>0;
 has 'priority', is=>'rw', required=>0;
 has 'example1_is_ready', is=>'rw', required=>0;

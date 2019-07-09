@@ -10,12 +10,11 @@ use Data::Dumper;
 ############################################################################################
 # Checking whether it is created correctly with correct types.
 my $common_fields = ANKI::Note::Fields->new(
-    id       => 1514547547030,
     german   => "sein",
     sound    => "[sound:pronunciation_de_sein.mp3]",
     priority => 2,
 );
-my $note = ANKI::Note->new( id=>1, modelName => 'German words and phrases', common_fields=>$common_fields);
+my $note = ANKI::Note->new( id=>1514547547030, modelName => 'German words and phrases', common_fields=>$common_fields);
 isa_ok($note,"ANKI::Note");
 isa_ok($note->common_fields,"ANKI::Note::Fields");
 
@@ -26,7 +25,7 @@ my $expected = {
     'version' => 6,
     'params' => {
         'note' => {
-            'id' => 1,
+            'id' => 1514547547030,
             'fields' => {
                 'example1_is_ready' => undef,
                 'example2' => undef,
