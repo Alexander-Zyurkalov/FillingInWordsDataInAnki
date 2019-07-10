@@ -17,6 +17,7 @@ if ($anki->getVersion() < 6 ) {
 # my $node = ANKI::Note->new(id => 1);
 # print $node->isa('ANKI::Note');
 
-print Dumper $anki->findNotesWithInfo(query => "\"note:German words and phrases\"");
+## checks whether utf-8 symbols can be used to find notes;
+print Dumper $anki->findNotesWithInfo(query => "verb_translation:\"быть;*\"");
 
 1;
