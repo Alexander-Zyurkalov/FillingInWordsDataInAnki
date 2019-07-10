@@ -45,22 +45,6 @@ sub new{
     $self->SUPER::new(@_);
 }
 
-=item addFieldUpdatingAction()
-
-add fields to update them later with doAllActions
-
-    $anki-> $anki->addFieldUpdatingAction(note => $note);
-
-=cut
-
-sub addFieldUpdatingAction{
-    my $self = shift;
-    my %params = @_;
-    my $note = $params{note};
-    die "It is not a note" if !$note->isa('ANKI::Note');
-    push @{$self->actions}, $note->getUpdateAction();
-}
-
 sub getDeckNames{
     my $self = shift;
 
