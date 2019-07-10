@@ -176,6 +176,24 @@ sub getVersion {
     return $self->{version};
 }
 
+=item updateNoteFields()
+
+update all fields in the list
+
+    $anki->updateNoteFields(notes=>[$note1, $note2, $note3]);
+
+=cut
+
+sub updateNoteFields{
+    my $self = shift;
+    my %params = @_;
+    my @notes = @{$params{notes}};
+    foreach my $note (@notes) {
+        die "It is not a ANKI::Note" if !$note->isa("ANKI::Note");
+        $self->_post({$note->getUpdateRequest()});
+    }
+}
+
 =back
 
 =cut

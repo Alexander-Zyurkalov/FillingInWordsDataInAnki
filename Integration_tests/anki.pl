@@ -22,5 +22,21 @@ is scalar(grep {$_ eq 'German'} $anki->getDeckNames()), 1, 'German should exist 
 my @notes = $anki->findNotesWithInfo(query => "verb_translation:\"быть;*\"");
 is $notes[0]->common_fields()->example1_translation(), 'Где он (находится)?', "it should return correct utf8 symbols";
 
+############################################################################################
+# check updating fields
+my $id = $notes[0]->id();
+my $note1 = $notes[0];
+$note1->common_fields()->example1_translation('Где он (находится)?1');
+$anki->updateNoteFields(notes=>[$note1]);
+my ($note2) = $anki->getNotesInfo(notes => [$id]);
+
+is  $note1->common_fields()->example1_translation(),
+    $note2->common_fields()->example1_translation(),
+    'the fields should be changed after updating';
+
+$note1->common_fields()->example1_translation('Где он (находится)?'); # get back the values
+$anki->updateNoteFields(notes=>[$note2]);
+############################################################################################
+
 done_testing();
 1;
