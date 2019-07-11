@@ -3,7 +3,7 @@ use strict;
 use warnings FATAL => 'all';
 use Moose;
 use ANKI;
-use ANKI::Note::Fields::Verb;
+use ANKI::Note::Fields;
 
 =pod
 
@@ -28,7 +28,7 @@ has 'modelName', is=>'ro', required => 1;
 The set of fields those are common for all types of words, either verbs or nouns or others.
 
 =cut
-has 'common_fields', is=>'ro', required => 1, isa=>'ANKI::Note::Fields';
+has 'common_fields', is=>'ro', required => 1, isa=>'ANKI::Note::Fields::CommonFields';
 
 has 'tags', is=>'ro';
 

@@ -3,7 +3,7 @@ use warnings FATAL => 'all';
 use strict;
 use Moose;
 use ANKI::Note;
-extends 'ANKI::Note::Fields';
+with 'ANKI::Note::Fields';
 
 
 

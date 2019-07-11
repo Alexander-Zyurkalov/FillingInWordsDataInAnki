@@ -4,19 +4,19 @@ use warnings FATAL => 'all';
 use Test::More;
 use ANKI;
 use ANKI::Note;
-use ANKI::Note::Fields;
+use ANKI::Note::Fields::CommonFields;
 use Data::Dumper;
 
 ############################################################################################
 # Checking whether it is created correctly with correct types.
-my $common_fields = ANKI::Note::Fields->new(
+my $common_fields = ANKI::Note::Fields::CommonFields->new(
     german   => "sein",
     sound    => "[sound:pronunciation_de_sein.mp3]",
     priority => 2,
 );
 my $note = ANKI::Note->new( id=>1514547547030, modelName => 'German words and phrases', common_fields=>$common_fields);
 isa_ok($note,"ANKI::Note");
-isa_ok($note->common_fields,"ANKI::Note::Fields");
+isa_ok($note->common_fields,"ANKI::Note::Fields::CommonFields");
 
 ############################################################################################
 # getUpdateRequest should return correct REST request for updating common fields

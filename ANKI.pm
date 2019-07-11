@@ -7,6 +7,7 @@ use Encode qw(decode encode);
 use Moose;
 use REST::Client;
 use JSON;
+use ANKI::Note::Fields::CommonFields;
 use v5.22;
 our $version = 6;
 
@@ -72,7 +73,7 @@ sub getNotesInfo{
         ANKI::Note->new(
             id            => $_->{noteId},
             modelName     => $_->{modelName},
-            common_fields => ANKI::Note::Fields->new(
+            common_fields => ANKI::Note::Fields::CommonFields->new(
                 german               => encode('utf8', $_->{fields}->{german}->{value}),
                 sound                => encode('utf8', $_->{fields}->{sound}->{value}),
                 priority             => encode('utf8', $_->{fields}->{priority}->{value}),
