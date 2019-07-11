@@ -92,7 +92,8 @@ sub getWordForms{
     my $self = shift;
     my %params = @_;
     my $word = $params{word};
-    return $self->_get('api/v1/WordForms?text='.uri_encode($word).'&lang='.$self->{lang});
+    my $lang = $params{lang} || $self->{lang};
+    return $self->_get('api/v1/WordForms?text='.uri_encode($word).'&lang='.$lang);
 }
 
 
