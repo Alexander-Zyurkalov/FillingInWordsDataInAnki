@@ -17,4 +17,9 @@ is $client1, $client2, "the client must be the same every time it is called";
 # Authorisation should work
 like $lingvo->{authToken}->{Authorization}, qr/^Bearer \w+$/, "Authorisation should work";
 
+############################################################################################
+# WordForms test
+use Data::Dumper;
+print Dumper $lingvo->getWordForms(word=>'sein');
+
 done_testing();

@@ -8,6 +8,7 @@ use REST::Client;
 use JSON qw(to_json from_json);
 use v5.22;
 use Settings::ApiKeys qw(ABBYY_LINGVO_API_KEY);
+use URI::Encode qw(uri_encode uri_decode);
 
 has 'client', is=>'ro', default => sub {return state $version = REST::Client->new()}, lazy=>1;
 
@@ -53,21 +54,56 @@ sub new{
     else{
         die "There is an error during authorisation. The error ".($response->responseCode())."\n";
     }
+
+    $self->{lang} = 1031; #DE
+    $self->{url} = $url;
+
     return $self;
 }
 
-sub _post{
+
+=item getWordForms()
+
+returns all forms of a word
+
+    # with default params
+    my $word_forms = $lingvo->getWrodForms(word=>'sein');
+
+    result =
+    [
+        {
+            'PartOfSpeech' => 'Verb',
+            'ParadigmJson' => {
+                                'Groups' => [
+                                              {
+                                                'RowCount' => 3,
+                                                'ColumnCount' => 2,
+                                                'Table' => [
+                                                             [
+                                                               {
+                                                                 'Value' => 'bin',
+                                                                 'Prefix' => 'ich ',
+                                                                 'Row' => undef
+     .......
+
+=cut
+
+sub getWordForms{
+    my $self = shift;
+    my %params = @_;
+    my $word = $params{word};
+    return $self->_get('api/v1/WordForms?text='.uri_encode($word).'&lang='.$self->{lang});
+}
+
+
+sub _get{
     my $self = shift;
     my $action = shift;
-    my $json = to_json(shift);
-    my $response = $self->client()->POST($self->url()."/$action", $json);
+
+    my $response = $self->client()->GET($self->{url}."/$action", $self->{authToken});
     if ($response -> responseCode() == 200) {
         my $json_answer = $response->responseContent();
-        my $result = from_json($json_answer);
-        if (defined $result->{error}){
-            die "Error!".$result->{error}."\n";
-        }
-        return $self->{version} = $result->{result};
+        return from_json($json_answer);
     }
     else {
         die "Wrong respond ".($response->responseCode())."\n";
