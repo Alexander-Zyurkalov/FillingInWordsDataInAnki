@@ -37,10 +37,6 @@ sub new{
     $self->SUPER::new(@_);
 }
 
-sub initSubClass {
-    # return ANKI::Note::Verb->new(@_);
-}
-
 sub getUpdateRequest {
     my $self = shift;
     my %action = (
