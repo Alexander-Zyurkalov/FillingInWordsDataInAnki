@@ -8,6 +8,7 @@ use Moose;
 use REST::Client;
 use JSON;
 use ANKI::Note::Fields::CommonFields;
+use ANKI::Note::Fields::Verb;
 use v5.22;
 our $version = 6;
 
@@ -85,7 +86,49 @@ sub getNotesInfo{
                 example2             => encode('utf8', $_->{fields}->{example2}->{value}),
                 example2_sound       => encode('utf8', $_->{fields}->{example2_sound}->{value}),
                 example2_translation => encode('utf8', $_->{fields}->{example2_translation}->{value}),
-            )
+            ),
+            verb_fields   =>
+                defined $_->{fields}->{verb_translation} ?
+                ANKI::Note::Fields::Verb->new(
+                    verb_translation       => encode('utf8', $_->{fields}->{verb_translation}->{value}),
+                    ich_mache_example      => encode('utf8', $_->{fields}->{ich_mache_example}->{value}),
+                    ich_mache_translation  => encode('utf8', $_->{fields}->{ich_mache_translation}->{value}),
+                    ich_mache              => encode('utf8', $_->{fields}->{ich_mache}->{value}),
+                    ich_mache_sound        => encode('utf8', $_->{fields}->{ich_mache_sound}->{value}),
+                    du_machst_example      => encode('utf8', $_->{fields}->{du_machst_example}->{value}),
+                    du_machst_translation  => encode('utf8', $_->{fields}->{du_machst_translation}->{value}),
+                    du_machst              => encode('utf8', $_->{fields}->{du_machst}->{value}),
+                    du_machst_sound        => encode('utf8', $_->{fields}->{du_machst_sound}->{value}),
+                    er_macht_example       => encode('utf8', $_->{fields}->{er_macht_example}->{value}),
+                    er_macht_translation   => encode('utf8', $_->{fields}->{er_macht_translation}->{value}),
+                    er_macht               => encode('utf8', $_->{fields}->{er_macht}->{value}),
+                    er_macht_sound         => encode('utf8', $_->{fields}->{er_macht_sound}->{value}),
+                    es_macht_example       => encode('utf8', $_->{fields}->{es_macht_example}->{value}),
+                    es_macht_translation   => encode('utf8', $_->{fields}->{es_macht_translation}->{value}),
+                    es_macht               => encode('utf8', $_->{fields}->{es_macht}->{value}),
+                    es_macht_sound         => encode('utf8', $_->{fields}->{es_macht_sound}->{value}),
+                    sie_macht_example      => encode('utf8', $_->{fields}->{sie_macht_example}->{value}),
+                    sie_macht_translation  => encode('utf8', $_->{fields}->{sie_macht_translation}->{value}),
+                    sie_macht              => encode('utf8', $_->{fields}->{sie_macht}->{value}),
+                    sie_macht_sound        => encode('utf8', $_->{fields}->{sie_macht_sound}->{value}),
+                    wir_machen_example     => encode('utf8', $_->{fields}->{wir_machen_example}->{value}),
+                    wir_machen_translation => encode('utf8', $_->{fields}->{wir_machen_translation}->{value}),
+                    wir_machen             => encode('utf8', $_->{fields}->{wir_machen}->{value}),
+                    wir_machen_sound       => encode('utf8', $_->{fields}->{wir_machen_sound}->{value}),
+                    ihr_macht_example      => encode('utf8', $_->{fields}->{ihr_macht_example}->{value}),
+                    ihr_macht_translation  => encode('utf8', $_->{fields}->{ihr_macht_translation}->{value}),
+                    ihr_macht              => encode('utf8', $_->{fields}->{ihr_macht}->{value}),
+                    ihr_macht_sound        => encode('utf8', $_->{fields}->{ihr_macht_sound}->{value}),
+                    sie_machen_example     => encode('utf8', $_->{fields}->{sie_machen_example}->{value}),
+                    sie_machen_translation => encode('utf8', $_->{fields}->{sie_machen_translation}->{value}),
+                    sie_machen             => encode('utf8', $_->{fields}->{sie_machen}->{value}),
+                    sie_machen_sound       => encode('utf8', $_->{fields}->{sie_machen_sound}->{value}),
+                    sie_machen2_example    => encode('utf8', $_->{fields}->{sie_machen2_example}->{value}),
+                    sie_machen2_translation => encode('utf8', $_->{fields}->{sie_machen2_translation}->{value}),
+                    sie_machen2            => encode('utf8', $_->{fields}->{sie_machen2}->{value}),
+                    sie_machen2_sound      => encode('utf8', $_->{fields}->{sie_machen2_sound}->{value}),
+                ) :
+                undef,
         )
     } @{$self->_post ({
         action => "notesInfo",

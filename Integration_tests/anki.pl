@@ -27,14 +27,20 @@ is $notes[0]->common_fields()->example1_translation(), 'Где он (наход�
 my $id = $notes[0]->id();
 my $note1 = $notes[0];
 $note1->common_fields()->example1_translation('Где он (находится)?1');
+$note1->verb_fields()->du_machst_translation('Ты - тут1');
 $anki->updateNoteFields(notes=>[$note1]);
 my ($note2) = $anki->getNotesInfo(notes => [$id]);
 
 is  $note1->common_fields()->example1_translation(),
     $note2->common_fields()->example1_translation(),
-    'the fields should be changed after updating';
+    'the common fields should be changed after updating';
+
+is  $note1->verb_fields()->du_machst_translation(),
+    $note2->verb_fields()->du_machst_translation(),
+    'the verb fields should be changed after updating';
 
 $note1->common_fields()->example1_translation('Где он (находится)?'); # get back the values
+$note1->verb_fields()->du_machst_translation('Ты - тут');
 $anki->updateNoteFields(notes=>[$note2]);
 ############################################################################################
 

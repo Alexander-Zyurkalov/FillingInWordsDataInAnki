@@ -28,8 +28,8 @@ has 'modelName', is=>'ro', required => 1;
 The set of fields those are common for all types of words, either verbs or nouns or others.
 
 =cut
-has 'common_fields', is=>'ro', required => 1, isa=>'ANKI::Note::Fields::CommonFields';
-
+has 'common_fields', is=>'rw', required => 1, isa=>'ANKI::Note::Fields::CommonFields';
+has 'verb_fields', is=>'rw', required => 0, isa=>'ANKI::Note::Fields::Verb';
 has 'tags', is=>'ro';
 
 sub new{
@@ -47,6 +47,7 @@ sub getUpdateRequest {
                 "id"     => $self->id,
                 "fields" => {
                     $self->common_fields()->getUpdateRequest(),
+                    defined $self->verb_fields() ? $self->verb_fields()->getUpdateRequest() : (),
                 },
             }
         }
