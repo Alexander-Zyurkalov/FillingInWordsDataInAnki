@@ -5,11 +5,10 @@ use utf8;
 use Encode qw(decode encode);
 use Moose;
 use REST::Client;
-use JSON;
+use JSON qw(to_json from_json);
 use v5.22;
 use Settings::ApiKeys qw(ABBYY_LINGVO_API_KEY);
 
-has 'url', default => 'https://developers.lingvolive.com', is=>'ro';
 has 'client', is=>'ro', default => sub {return state $version = REST::Client->new()}, lazy=>1;
 
 =pod
@@ -38,14 +37,24 @@ create an instance of the Abbyy Lingvo connection.
 
 sub new{
     my $self = shift;
-    $self->SUPER::new(@_);
-    # $self->{_token} = $self->_post('api/v1.1/authenticate', {
-    #
-    # });
-     # ABBYY_LINGVO_API_KEY;
+    $self = $self->SUPER::new(@_);
+    my $auth = '/api/v1.1/authenticate';
+    my $url = 'https://developers.lingvolive.com';
+    my $auth_header = {
+        Authorization => "Basic ".ABBYY_LINGVO_API_KEY,
+    };
+    my $response = $self->client()->POST("$url$auth",'',$auth_header);
+    if ($response->responseCode() == 200) {
+        my $token = $response->responseContent();
+        $self->{authToken} = {
+            Authorization => "Bearer $token"
+        };
+    }
+    else{
+        die "There is an error during authorisation. The error ".($response->responseCode())."\n";
+    }
+    return $self;
 }
-
-
 
 sub _post{
     my $self = shift;
