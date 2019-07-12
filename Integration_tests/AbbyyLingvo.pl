@@ -20,6 +20,6 @@ like $lingvo->{authToken}->{Authorization}, qr/^Bearer \w+$/, "Authorisation sho
 ############################################################################################
 # WordForms test
 use Data::Dumper;
-print Dumper $lingvo->getWordForms(word=>'sein');
+print Dumper $lingvo->getWordForms(word=>'machen');
 
 done_testing();

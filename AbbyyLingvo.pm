@@ -70,21 +70,93 @@ returns all forms of a word
     my $word_forms = $lingvo->getWrodForms(word=>'sein');
 
     result =
-    [
-        {
+    [ #array
+        { #[0]
+            'Lexem' => 'sein',
             'PartOfSpeech' => 'Verb',
             'ParadigmJson' => {
-                                'Groups' => [
-                                              {
-                                                'RowCount' => 3,
-                                                'ColumnCount' => 2,
-                                                'Table' => [
-                                                             [
-                                                               {
-                                                                 'Value' => 'bin',
-                                                                 'Prefix' => 'ich ',
-                                                                 'Row' => undef
-     .......
+
+            }
+        },
+        { #[1]
+            'Lexem' => 'sein',
+            'PartOfSpeech' => 'Pronomen' # noun
+            'ParadigmJson' => {
+            }
+        }
+    ]
+    result =
+    [ #array
+        {
+            'PartOfSpeech' => 'Verb',
+            'Lexem' => 'machen',
+            'ParadigmJson' => {
+            }
+        },
+        {
+            'PartOfSpeech' => 'Verb',
+            'Lexem' => 'machen',
+            'ParadigmJson' => {
+            }
+        }
+    ]
+    # ParadigmJson for verbs
+    {
+        Grammar => 'Verb, intransitives',
+        Name => 'sein'
+        Groups => [ # word forms
+        ]
+    }
+
+    # ParadigmJson for verbs
+    {
+        'Grammar' => 'Verb, intransitives',
+        'Name' => 'machen'
+        'Groups' => [
+            {
+                'RowCount' => 3,
+                'Name' => "Indikativ, Pr\x{c3}\x{a4}sens, Aktiv",
+                'ColumnCount' => 2,
+                'Table' => [
+                     [ # row 1
+                           { # col 1
+                             'Value' => 'mache',
+                             'Row' => undef,
+                             'Prefix' => 'ich '
+                           },
+                           { # col 2
+                             'Value' => 'machen',
+                             'Row' => undef,
+                             'Prefix' => 'wir '
+                           }
+                     ],
+                     [ #row 2
+                           { # col 1
+                             'Value' => 'machst',
+                             'Row' => undef,
+                             'Prefix' => 'du '
+                           },
+                           { # col 2
+                             'Value' => 'macht',
+                             'Row' => undef,
+                             'Prefix' => 'ihr '
+                           }
+                     ],
+                     [ #row 3
+                           { # col 1
+                             'Value' => 'macht',
+                             'Row' => undef,
+                             'Prefix' => 'er/sie/es '
+                           },
+                           { # col 2
+                             'Row' => undef,
+                             'Prefix' => 'sie ',
+                             'Value' => 'machen'
+                           }
+                     ]
+                ]
+            }
+        ]
 
 =cut
 
