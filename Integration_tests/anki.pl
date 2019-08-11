@@ -6,8 +6,6 @@ use Data::Dumper;
 use ANKI::Note;
 use Test::More;
 
-system('chcp 65001');
-
 ############################################################################################
 # checks whether it is version 6
 my $anki = ANKI->new();
