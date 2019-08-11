@@ -41,7 +41,7 @@ is  $note1->verb_fields()->du_machst_translation(),
 
 $note1->common_fields()->example1_translation('Где он (находится)?'); # get back the values
 $note1->verb_fields()->du_machst_translation('Ты - тут');
-$anki->updateNoteFields(notes=>[$note2]);
+$anki->updateNoteFields(notes=>[$note1]);
 ############################################################################################
 
 done_testing();
