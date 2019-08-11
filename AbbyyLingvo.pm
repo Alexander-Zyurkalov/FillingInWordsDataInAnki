@@ -42,7 +42,8 @@ sub new{
     my $auth = '/api/v1.1/authenticate';
     my $url = 'https://developers.lingvolive.com';
     my $auth_header = {
-        Authorization => "Basic ".ABBYY_LINGVO_API_KEY,
+        Authorization => "Basic ".
+            $Settings::ApiKeys::ABBYY_LINGVO_API_KEY,
     };
     my $response = $self->client()->POST("$url$auth",'',$auth_header);
     if ($response->responseCode() == 200) {
