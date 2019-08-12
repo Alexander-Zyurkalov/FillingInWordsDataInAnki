@@ -4,13 +4,11 @@ use warnings FATAL => 'all';
 use utf8;
 use Encode qw(decode encode);
 use Moose;
-use REST::Client;
+use LWP::UserAgent;
 use JSON qw(to_json from_json);
 use v5.22;
 use Settings::ApiKeys qw(ABBYY_LINGVO_API_KEY);
 use URI::Encode qw(uri_encode uri_decode);
-
-has 'client', is=>'ro', default => sub {return state $version = REST::Client->new()}, lazy=>1;
 
 =pod
 
@@ -41,19 +39,20 @@ sub new{
     $self = $self->SUPER::new(@_);
     my $auth = '/api/v1.1/authenticate';
     my $url = 'https://developers.lingvolive.com';
-    my $auth_header = {
+    my %auth_header = (
         Authorization => "Basic ".
             $Settings::ApiKeys::ABBYY_LINGVO_API_KEY,
-    };
-    my $response = $self->client()->POST("$url$auth",'',$auth_header);
-    if ($response->responseCode() == 200) {
-        my $token = $response->responseContent();
+    );
+    my $client = LWP::UserAgent->new;
+    my $response = $client->post("$url$auth",[],%auth_header);
+    if ($response->is_success && $response->code == 200) {
+        my $token = $response->content();
         $self->{authToken} = {
             Authorization => "Bearer $token"
         };
     }
     else{
-        die "There is an error during authorisation. The error ".($response->responseCode())."\n";
+        die "There is an error during authorisation. The error ".($response->status_line())."\n";
     }
 
     $self->{lang} = 1031; #DE
@@ -174,13 +173,14 @@ sub _get{
     my $self = shift;
     my $action = shift;
 
-    my $response = $self->client()->GET($self->{url}."/$action", $self->{authToken});
-    if ($response -> responseCode() == 200) {
-        my $json_answer = $response->responseContent();
+    my $client = LWP::UserAgent->new;
+    my $response = $client->get($self->{url}."/$action", %{$self->{authToken}});
+    if ($response -> code() == 200) {
+        my $json_answer = $response->content();
         return from_json($json_answer);
     }
     else {
-        die "Wrong respond ".($response->responseCode())."\n";
+        die "Wrong respond ".($response->status_line())."\n";
     }
 }
 
