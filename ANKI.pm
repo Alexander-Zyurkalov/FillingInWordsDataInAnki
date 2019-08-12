@@ -5,7 +5,7 @@ use warnings FATAL => 'all';
 use utf8;
 use Encode qw(decode encode);
 use Moose;
-use REST::Client;
+use LWP::UserAgent;
 use JSON;
 use ANKI::Note::Fields::CommonFields;
 use ANKI::Note::Fields::Verb;
@@ -13,7 +13,6 @@ use v5.22;
 our $version = 6;
 
 has 'url', default => 'http://localhost:8765', is=>'rw';
-has 'client', is=>'ro', default => sub {return state $version = REST::Client->new()}, lazy=>1;
 
 =pod
 
@@ -182,9 +181,10 @@ sub findNotesWithInfo{
 sub _post{
     my $self = shift;
     my $json = to_json(shift);
-    my $response = $self->client()->POST($self->url, $json);
-    if ($response -> responseCode() == 200) {
-        my $json_answer = $response->responseContent();
+    my $client = LWP::UserAgent->new;
+    my $response = $client->post($self->url, Content => $json);
+    if ($response -> code() == 200) {
+        my $json_answer = $response->content();
         my $result = from_json($json_answer);
         if (defined $result->{error}){
             die "Error!".$result->{error}."\n";
@@ -192,7 +192,7 @@ sub _post{
         return $self->{version} = $result->{result};
     }
     else {
-        die "Wrong respond ".($response->responseCode())."\n";
+        die "Wrong respond ".($response->status_line)."\n";
     }
 }
 
